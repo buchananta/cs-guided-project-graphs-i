@@ -29,4 +29,30 @@ from collections import deque
 
 def numIslands(grid):
     # Your code here
+    num_islands = 0
+    for x in range(len(grid)):
+        for y in range(len(grid[x])):
+            if grid[x][y] == '1':
+                num_islands += 1
+                stack = [(x, y)]
+                grid[x][y] = '0'
 
+                while stack:
+                    i, j = stack.pop()
+                    if i + 1 < len(grid) and grid[i + 1][j] == '1':
+                        grid[i + 1][j] = '0'
+                        stack.append((i + 1, j))
+                    if j + 1 < len(grid[i]) and grid[i][j + 1] == '1':
+                        grid[i][j + 1] = '0'
+                        stack.append((i, j + 1))
+    return num_islands                    
+grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
+# I think this breaks because it doesn't check left (or up for that matter)
+print(numIslands(grid))
+print(numIslands([['0','1'],['1','1']]))
+# yup
